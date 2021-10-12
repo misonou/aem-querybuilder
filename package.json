@@ -1,0 +1,23 @@
+{
+  "name": "aem-querybuilder",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "misonou",
+  "license": "MIT",
+  "keywords": [
+    "aem",
+    "Adobe Experience Manager"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/misonou/aem-querybuilder.git"
+  },
+  "devDependencies": {
+    "mocha": "^9.1.2",
+    "nyc": "^15.1.0"
+  },
+  "scripts": {
+    "test": "mocha tests/*.js",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary npm test"
+  }
+}

@@ -1,0 +1,6 @@
+coverage
+tests
+src/internal.d.ts
+jsconfig.json
+.nyc_output
+.vscode
