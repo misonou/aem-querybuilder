@@ -659,11 +659,19 @@ function generateEntriesForPredicate(q, p, group) {
 
     // decompose nested predicates if there is exactly one AND sub-predicate
     // to reduce unnecessary predicate groups
-    while (and.length === 1 && !not[0] && !or[0] && isLogicalPredicate(and[0])) {
-        let inner = and.splice(0)[0];
-        for (let op of logicalOps) {
-            logical[op].push(...makeArray(inner[op]));
+    while (true) {
+        if (and.length === 1 && !not[0] && !or[0] && isLogicalPredicate(and[0])) {
+            let inner = and.splice(0)[0];
+            for (let op of logicalOps) {
+                logical[op].push(...makeArray(inner[op]));
+            }
+            continue;
         }
+        if (or.length === 1) {
+            and.push(...or.splice(0));
+            continue;
+        }
+        break;
     }
 
     // determine logical operation for this predicate group inferred by child predicates

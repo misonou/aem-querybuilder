@@ -135,6 +135,16 @@ describe('Predicate.or', function () {
             '2_group.nodename': 'bar*'
         });
     });
+    it('should not emit group with p.or parameter when there is only one child predicates', function () {
+        verifyOutput({
+            or: [
+                { path: '/content/foo', nodename: 'foo*' }
+            ]
+        }, {
+            'path': '/content/foo',
+            'nodename': 'foo*',
+        });
+    });
     it('should be ignored when specified an empty array', function () {
         verifyOutput({
             or: []
