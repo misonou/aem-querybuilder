@@ -6,8 +6,9 @@ This is a small utility that produce necessary parameters to AEM's query builder
 
 This library can be used both in browsers and server-side applications.
 
-> Include polyfill for [Object.assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) and
-  [Object.fromEntries](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries) in legacy environments.
+> Include polyfill for [Object.assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign),
+  [Object.fromEntries](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries) and
+  [Array.prototype.flatMap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap) in legacy environments.
 
 > This utility is written in CommonJS module. For ES Module or UMD environment, or either [class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes),
   [generator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*),
@@ -15,7 +16,7 @@ This library can be used both in browsers and server-side applications.
   [rest parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters),
   [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) or
   [optional chaining operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) is not supported,
-  please transcompile using tools like [webpack](https://webpack.js.org).
+  please transcompile using tools like [webpack](https://webpack.js.org) or [babel](https://babeljs.io).
 
 ## TypeScript support
 
@@ -24,6 +25,7 @@ When using in TypeScript projects with `tsc`, set the following flags to `true` 
 ```json
 {
     "compilerOptions": {
+        "skipLibCheck": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true
     }
@@ -45,7 +47,7 @@ const query = new QueryBuilder({
     path: '/content', // under /content
     where: {          // where title contains Sample
         'jcr:content/jcr:title': { like: 'Sample' }
-    }
+    },
     select: '*',      // select all properties
     nodeDepth: 1,     // including direct children's
     limit: 10         // limiting to 10 results
