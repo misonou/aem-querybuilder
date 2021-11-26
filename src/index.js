@@ -266,16 +266,6 @@ class PropertyPredicate {
 class PropertyDefaultPredicate extends PropertyPredicate {
     static rootName = 'property';
 
-    /**
-     * @param {string} name
-     * @param {Record<string, any>} props
-     * @this {PropertyPredicate & PropertyDefaultPredicateProps}
-     */
-    constructor(name, props) {
-        super(name, props);
-        checkMutualExclusiveProps(this, ['eq', 'ne', 'like', 'notLike', 'exists']);
-    }
-
     static shouldProcess(props) {
         return ['eq', 'ne', 'like', 'notLike', 'exists'].some(v => props[v] !== undefined);
     }
@@ -284,6 +274,10 @@ class PropertyDefaultPredicate extends PropertyPredicate {
      * @this {PropertyPredicate & PropertyDefaultPredicateProps}
      */
     normalize() {
+        let keys = ['eq', 'ne', 'like', 'notLike', 'exists'].filter(v => this[v] !== undefined);
+        if (keys.length > 1) {
+            return keys.flatMap(v => new PropertyDefaultPredicate(this.property, { [v]: this[v], depth: this.depth }).normalize());
+        }
         if (this.notLike) {
             return new PropertyLogicalPredicate(this.property, { not: { like: this.notLike, depth: this.depth } }).normalize();
         }

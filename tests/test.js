@@ -867,14 +867,43 @@ describe('PropertyDefaultPredicateProps', function () {
             'property.depth': '1'
         });
     });
-    it('should throw error when more than one operation is specified', function () {
-        shouldThrow({
+    it('should emit AND group if more than 1 operation is specified', function () {
+        verifyOutput({
             where: {
                 'jcr:title': {
                     eq: 'foo',
-                    ne: 'bar'
+                    ne: 'bar',
+                    depth: 1
                 }
             }
+        }, {
+            '1_property': 'jcr:title',
+            '1_property.value': 'foo',
+            '1_property.operation': 'equals',
+            '1_property.depth': '1',
+            '2_property': 'jcr:title',
+            '2_property.value': 'bar',
+            '2_property.operation': 'unequals',
+            '2_property.depth': '1'
+        });
+        verifyOutput({
+            where: {
+                'jcr:title': {
+                    eq: 'foo',
+                    notLike: 'bar',
+                    depth: 1
+                }
+            }
+        }, {
+            'property': 'jcr:title',
+            'property.value': 'foo',
+            'property.operation': 'equals',
+            'property.depth': '1',
+            'group.p.not': 'true',
+            'group.property': 'jcr:title',
+            'group.property.value': 'bar',
+            'group.property.operation': 'like',
+            'group.property.depth': '1'
         });
     });
 });

@@ -125,27 +125,22 @@ interface FulltextPredicateProps {
 interface PropertyDefaultPredicateProps {
     /**
      * Specifies `equals` operation.
-     * This property cannot be used together with other properties excerpt `depth`.
      */
     eq?: ScalarOrArray<string>;
     /**
      * Specifies `unequals` operation.
-     * This property cannot be used together with other properties excerpt `depth`.
      */
     ne?: ScalarOrArray<string>;
     /**
      * Specifies `like` operation.
-     * This property cannot be used together with other properties excerpt `depth`.
      */
     like?: ScalarOrArray<string>;
     /**
      * Specifies `like` operation within a NOT group.
-     * This property cannot be used together with other properties excerpt `depth`.
      */
     notLike?: ScalarOrArray<string>;
     /**
      * Specifies `exists` or `not` operation.
-     * This property cannot be used together with other properties excerpt `depth`.
      */
     exists?: boolean;
     /**
