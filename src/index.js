@@ -285,7 +285,7 @@ class PropertyDefaultPredicate extends PropertyPredicate {
      */
     normalize() {
         if (this.notLike) {
-            return new PropertyLogicalPredicate(this.property, { not: { like: this.notLike } }).normalize();
+            return new PropertyLogicalPredicate(this.property, { not: { like: this.notLike, depth: this.depth } }).normalize();
         }
         return super.normalize();
     }

@@ -855,6 +855,17 @@ describe('PropertyDefaultPredicateProps', function () {
             'property.operation': 'equals',
             'property.depth': '1'
         });
+        verifyOutput({
+            where: {
+                'jcr:title': { notLike: 'bar', depth: 1 }
+            }
+        }, {
+            'p.not': 'true',
+            'property': 'jcr:title',
+            'property.value': 'bar',
+            'property.operation': 'like',
+            'property.depth': '1'
+        });
     });
     it('should throw error when more than one operation is specified', function () {
         shouldThrow({
